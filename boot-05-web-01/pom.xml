@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.atguigu</groupId>
-    <artifactId>boot-05-web-01</artifactId>
+    <artifactId>SpringBoot_</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>boot-05-web-01</name>
+    <name>SpringBoot_</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

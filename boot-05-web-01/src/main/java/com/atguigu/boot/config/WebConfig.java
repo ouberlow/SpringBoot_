@@ -1,19 +1,14 @@
 package com.atguigu.boot.config;
 
 
-import com.atguigu.boot.bean.Person;
 import com.atguigu.boot.bean.Pet;
 import com.atguigu.boot.converter.GuiguMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.FormatterRegistry;
-import org.springframework.http.HttpInputMessage;
-import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.util.StringUtils;
 import org.springframework.web.accept.HeaderContentNegotiationStrategy;
 import org.springframework.web.accept.ParameterContentNegotiationStrategy;
@@ -23,13 +18,18 @@ import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.util.UrlPathHelper;
 
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.*;
 
 @Configuration(proxyBeanMethods = false)
 public class WebConfig /*implements WebMvcConfigurer*/ {
 
+    /*通过如下方式开启，才能使用hiddenHttpMethodFilter
+ spring:
+  mvc:
+    hiddenmethod:
+      filter:
+       enabled: true
+     */
     @Bean
     public HiddenHttpMethodFilter hiddenHttpMethodFilter(){
         HiddenHttpMethodFilter methodFilter = new HiddenHttpMethodFilter();

@@ -1,14 +1,20 @@
 package com.atguigu.boot;
 
 
+import com.atguigu.boot.bean.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties;
 import org.springframework.cache.interceptor.CacheAspectSupport;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
+//当前类即为自己的Application
+/*
+1.主要的注解的应用及其作用
+2.底层运行原理
+3.前后端交互方式
+ */
 
 /**
  * 主程序类;主配置类
@@ -17,8 +23,17 @@ import org.springframework.context.annotation.ComponentScan;
 
 //@SpringBootApplication
 @SpringBootConfiguration
-@EnableAutoConfiguration
-@ComponentScan("com.atguigu.boot")
+/*元注解
+   在一系列的注解声明中，有些注解具有多重继承和实现的特性，即一个注解下有多个注解，
+而注解作为一个标识，即可以标识到使用了该注解的类，此时当前注解所继承的注解的作用
+可以和当前注解所注解的类产生联系。
+ */
+//该注解底层有按需记载的配置，所以有很多配置类并没有一股脑的加载到容器中，即有一部分配置类并没有生效
+//没有加载的原因：使用了@ConditionalOn......类型的注解;
+//底层已经配置好了众多所需要的配置类，如DispatcherServlet.MultipartResolver(文件上传解析器)
+@EnableAutoConfiguration  //开启自动装配
+
+@ComponentScan("com.atguigu.boot")   //自定义配置类的扫描
 public class MainApplication {
 
 
@@ -32,17 +47,20 @@ public class MainApplication {
             System.out.println(name);
         }
 
+        //获取容器中所有bean的总数
         int beanDefinitionCount = run.getBeanDefinitionCount();
         System.out.println(beanDefinitionCount);
 
+        //查看容器中共有多少该类型的组件
         String[] beanNamesForType = run.getBeanNamesForType(CacheAspectSupport.class);
         System.out.println("======"+beanNamesForType.length);
 
-        //3、从容器中获取组件
-
+        //3、从容器中获取组件(可以是配置文件)
         String[] beanNamesForType1 = run.getBeanNamesForType(WebMvcProperties.class);
         System.out.println("======"+beanNamesForType1.length);
 //
+
+          //可以通过配置的bean名或者方法名来获取bean
 //        Pet tom01 = run.getBean("tom", Pet.class);
 //
 //        Pet tom02 = run.getBean("tom", Pet.class);
@@ -85,6 +103,10 @@ public class MainApplication {
 
         boolean tom22 = run.containsBean("tom22");
         System.out.println("容器中tom22组件："+tom22);
+
+        User zhangsan =  run.getBean("user01",User.class);
+        System.out.println(zhangsan.getPet());
+
 
 
         boolean haha = run.containsBean("haha");

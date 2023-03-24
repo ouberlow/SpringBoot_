@@ -5,9 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <!--直接在这里鼠标左键进行加在Maven项目-->
+    <!--导入spring-boot-starter-parent父工程依赖(有了几乎所有的基本所需配置)，同时配置需要的web工程，也即spring-boot-starter-web模块-->
 
     <groupId>com.atguigu</groupId>
-    <artifactId>boot-01-helloworld</artifactId>
+    <artifactId>SpringBoot_</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -34,6 +35,7 @@
             <artifactId>lombok</artifactId>
         </dependency>
 
+        <!--配置下面的依赖后使用Ctrl+F9:即可进行及时的重新编译-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>

@@ -2,7 +2,7 @@ spring:
   mvc:
     hiddenmethod:
       filter:
-        enabled: true
+       enabled: true
     contentnegotiation:
       favor-parameter: true
   #  mvc:
@@ -14,6 +14,7 @@ spring:
     cache:
       period: 11000
 server:
+  port : 8080
   servlet:
-    context-path: /world
+   context-path: /world
 

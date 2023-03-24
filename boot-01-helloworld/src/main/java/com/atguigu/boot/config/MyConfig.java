@@ -5,14 +5,12 @@ import ch.qos.logback.core.db.DBHelper;
 import com.atguigu.boot.bean.Car;
 import com.atguigu.boot.bean.Pet;
 import com.atguigu.boot.bean.User;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
-import org.springframework.web.filter.CharacterEncodingFilter;
 
 
 /**
@@ -31,15 +29,36 @@ import org.springframework.web.filter.CharacterEncodingFilter;
  *
  */
 
+//只要该类被依赖，就可以通过该注解对任意被依赖的类进行注入，则容器中就有该类的实例对象！
 @Import({User.class, DBHelper.class})
+
+
+//一经扫描就会被注入到IOC容器中，作为IOC容器的一部分！
 @Configuration(proxyBeanMethods = false) //告诉SpringBoot这是一个配置类 == 配置文件
+
+
+//当容器中没有Bean(name="")则以下代码不会生效也不会注入到容器中！
 //@ConditionalOnBean(name = "tom")
+//当容器中没有Bean(name="")则以下代码均有效
 @ConditionalOnMissingBean(name = "tom")
+
+
+//引入资源下的文件
 @ImportResource("classpath:beans.xml")
-//@EnableConfigurationProperties(Car.class)
-//1、开启Car配置绑定功能
+
+
+/*自动注解原理
+
+
+*/
+//1、开启Car配置绑定功能-->可以将car.class类自动和核心配置文件的一些指定属性进行绑定
 //2、把这个Car这个组件自动注册到容器中
+//3. 也就意味着可以把第三方包中的指定的类注入到IOC容器中
+//直接在要使用Car对象的类上标注@EnableConfigurationProperties注解
+@EnableConfigurationProperties(Car.class)  //同时在car类上还有配置一个@ConfigurationProperties(prefix = "mycar")注解表示加载指定前缀的值
+
 public class MyConfig {
+
 
 
     /**
@@ -47,14 +66,16 @@ public class MyConfig {
      * @return
      */
 
+
     @Bean //给容器中添加组件。以方法名作为组件的id。返回类型就是组件类型。返回的值，就是组件在容器中的实例
     public User user01(){
         User zhangsan = new User("zhangsan", 18);
+
         //user组件依赖了Pet组件
         zhangsan.setPet(tomcatPet());
         return zhangsan;
-    }
 
+    }
     @Bean("tom22")
     public Pet tomcatPet(){
         return new Pet("tomcat");

@@ -13,7 +13,8 @@ import org.springframework.stereotype.Component;
 @ToString
 @Data
 @Component
-@ConfigurationProperties(prefix = "mycar")
+//该注解表示该类和核心配置文件的指定前缀属性是绑定的
+@ConfigurationProperties(prefix = "mycar") //在核心配置文件进行属性的复制
 public class Car {
 
     private String brand;

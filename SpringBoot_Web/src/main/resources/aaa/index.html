@@ -7,7 +7,7 @@
 <body>
 <h1>atguigu，欢迎您</h1>
 测试REST风格；
-<form action="/user" method="get" >
+<form action="/user" method="get">
     <input value="REST-GET 提交" type="submit"/>
 </form>
 <form action="/user" method="post">
@@ -49,7 +49,6 @@ url重写：/abc;jsesssionid=xxxx 把cookie的值使用矩阵变量的方式进�
 <a href="/cars/sell;low=34;brand=byd,audi,yd">@MatrixVariable（矩阵变量）</a>
 <a href="/cars/sell;low=34;brand=byd;brand=audi;brand=yd">@MatrixVariable（矩阵变量）</a>
 <a href="/boss/1;age=20/2;age=10">@MatrixVariable（矩阵变量）/boss/{bossId}/{empId}</a>
-<a href="/atguigu">测试跳转页面</a>
 <br/>
 <form action="/save" method="post">
     测试@RequestBody获取数据 <br/>
